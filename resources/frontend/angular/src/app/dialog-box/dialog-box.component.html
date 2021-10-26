@@ -1,0 +1,52 @@
+<!-- dialog-box.component.html -->
+<h1 mat-dialog-title>{{action === 'Add' ? 'Add new article' : action + ' ' + local_data.title}}</h1>
+<div mat-dialog-content>
+
+    <ng-container *ngIf="action != 'Delete'; else elseTemplate">
+        <form [formGroup]="form">
+            <div *ngIf="data.id">
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput type="text" name="id" formControlName="id" />
+                </mat-form-field>
+            </div>
+        
+            <div>
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input matInput type="text" name="title" formControlName="title" />
+                </mat-form-field>
+            </div>
+        
+            <div>
+                <mat-form-field>
+                    <mat-label>Content</mat-label>
+                    <input matInput type="text" name="content" formControlName="content" />
+                </mat-form-field>
+            </div>
+        
+            <div *ngIf="data.updated_at">
+                <mat-form-field>
+                    <mat-label>Updated at</mat-label>
+                    <input matInput type="text" name="updated_at" formControlName="updated_at" />
+                </mat-form-field>
+            </div>
+        
+            <div *ngIf="data.created_at">
+                <mat-form-field>
+                    <mat-label>Created at</mat-label>
+                    <input matInput type="text" name="created_at" formControlName="created_at" />
+                </mat-form-field>
+            </div>
+        </form>
+    </ng-container>
+
+    <ng-template #elseTemplate>
+        Sure to delete article: <b>{{local_data.title}}</b>?
+    </ng-template>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
